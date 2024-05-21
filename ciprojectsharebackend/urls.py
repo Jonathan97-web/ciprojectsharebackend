@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from profiles.views import ProfileViewSet
+from projects.views import ProjectViewSet
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -31,6 +33,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'profiles', ProfileViewSet)
+router.register(r'projects', ProjectViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,5 +42,6 @@ urlpatterns = [
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('api_auth/', include('rest_framework.urls')),
-    path('profiles/', include('profiles.urls'))
+    path('profiles/', include('profiles.urls')),
+    path('projects/', include('projects.urls')),
 ]
