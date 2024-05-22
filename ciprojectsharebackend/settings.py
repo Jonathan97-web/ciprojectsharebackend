@@ -21,8 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 if os.path.exists('env.py'):
     import env
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -68,7 +66,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication' if DEBUG else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-         'rest_framework.permissions.IsAuthenticated',
+         'rest_framework.permissions.IsAuthenticated' if DEBUG else 'rest_framework.permissions.AllowAny'
     ]
 }
 if 'DEBUG' not in os.environ:
