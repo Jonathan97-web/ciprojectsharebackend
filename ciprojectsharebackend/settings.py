@@ -18,6 +18,9 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+if os.path.exists('env.py'):
+    import env
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!mkh)z0pv+ss5&5aut8ttk1)194k(5=^^%4x(q)3ren7b5nsbx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
