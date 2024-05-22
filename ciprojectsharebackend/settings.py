@@ -52,7 +52,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'profiles',
-    'projects'
+    'projects',
+    'comments',
+    'likes'
 ]
 
 SITE_ID = 1
@@ -60,8 +62,11 @@ SITE_ID = 1
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+ 'rest_framework.authentication.SessionAuthentication' if DEBUG else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     ),
+    'DEFAULT_PERMISSION_CLASSES': [
+         'rest_framework.permissions.IsAuthenticated',
+    ]
 }
 
 REST_AUTH = {

@@ -20,11 +20,14 @@ from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from profiles.views import ProfileViewSet
 from projects.views import ProjectViewSet
+from comments.views import CommentViewSet
+from likes.views import LikeViewSet
+from .views import CustomTokenObtainPairView
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'first_name', 'last_name', 'password', 'email', 'is_staff']
+        fields = ['id', 'url', 'username', 'first_name', 'last_name', 'password', 'email', 'is_staff']
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -35,6 +38,8 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'profiles', ProfileViewSet)
 router.register(r'projects', ProjectViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'likes', LikeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,4 +49,6 @@ urlpatterns = [
     path('api_auth/', include('rest_framework.urls')),
     path('profiles/', include('profiles.urls')),
     path('projects/', include('projects.urls')),
+    path('likes/', include('likes.urls')),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair')
 ]
